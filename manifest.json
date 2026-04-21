@@ -1,0 +1,25 @@
+{
+  "name": "Tools Super App",
+  "short_name": "Tools Super",
+  "description": "43+ advanced utilities — text, image, QR, barcode, hash, calculator and more.",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f5f3fa",
+  "theme_color": "#7c3aed",
+  "categories": ["utilities", "productivity"],
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='42' fill='%237c3aed'/%3E%3Ctext x='96' y='136' font-size='112' text-anchor='middle' font-family='Material Symbols Rounded,sans-serif' fill='white'%3E🔧%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%237c3aed'/%3E%3Ctext x='256' y='360' font-size='300' text-anchor='middle' font-family='Material Symbols Rounded,sans-serif' fill='white'%3E🔧%3C/text%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

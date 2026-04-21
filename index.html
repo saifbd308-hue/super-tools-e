@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-palette="classic">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Tools Super App &middot; 43+ Advanced Utilities</title>
+  <meta
+    name="description"
+    content="Advanced toolbox with text, calculator, image, QR, barcode, hash, regex, diff, currency, and converter utilities."
+  >
+  <meta name="theme-color" content="#7c3aed">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Inter:wght@400;500;600;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,0,0"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="./styles.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.4.4/luxon.min.js"></script>
+  <script defer src="./tools.js"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <div class="splash-screen" id="splashScreen" aria-hidden="true">
+    <div class="splash-screen__inner">
+      <div class="splash-screen__icon">
+        <span class="material-symbols-rounded">construction</span>
+      </div>
+      <p class="splash-screen__name">Tools Super</p>
+    </div>
+  </div>
+  <div class="app-background" aria-hidden="true">
+    <div class="app-background__orb app-background__orb--one"></div>
+    <div class="app-background__orb app-background__orb--two"></div>
+    <div class="app-background__grid"></div>
+  </div>
+
+  <div class="app-shell">
+    <header class="top-bar">
+      <button class="brand-lockup" id="homeBrandButton" type="button" aria-label="Go to home">
+        <span class="brand-mark">
+          <span class="material-symbols-rounded">construction</span>
+        </span>
+        <span class="brand-copy">
+          <span class="eyebrow">Tools Super</span>
+          <span class="brand-copy__title">43+ advanced utilities</span>
+        </span>
+      </button>
+
+      <label class="search-field" for="searchInput">
+        <span class="material-symbols-rounded">search</span>
+        <input
+          id="searchInput"
+          type="search"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="Search tools..."
+          aria-label="Search tools"
+        >
+      </label>
+
+      <div class="top-bar__actions">
+        <button class="icon-button" id="themeToggle" type="button" aria-label="Toggle theme">
+          <span class="material-symbols-rounded" id="themeToggleIcon">dark_mode</span>
+        </button>
+        <button
+          class="icon-button"
+          id="paletteToggle"
+          type="button"
+          aria-label="Open palette picker"
+          aria-expanded="false"
+          aria-controls="paletteTray"
+        >
+          <span class="material-symbols-rounded">palette</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="palette-tray" id="paletteTray" hidden>
+      <div class="surface-card palette-tray__card">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Appearance</p>
+            <h2>Palette presets</h2>
+          </div>
+          <p class="section-heading__meta">Choose a full tonal set for light and dark themes.</p>
+        </div>
+        <div class="palette-options" id="paletteTrayOptions"></div>
+      </div>
+    </div>
+
+    <div class="app-layout">
+      <aside class="side-rail" aria-label="Primary">
+        <button class="side-rail__item is-active" data-view="dashboard" type="button">
+          <span class="material-symbols-rounded">home</span>
+          <span>Home</span>
+        </button>
+        <button class="side-rail__item" data-view="favorites" type="button">
+          <span class="material-symbols-rounded">kid_star</span>
+          <span>Favorites</span>
+        </button>
+        <button class="side-rail__item" data-view="recent" type="button">
+          <span class="material-symbols-rounded">history</span>
+          <span>Recent</span>
+        </button>
+        <button class="side-rail__item" data-view="settings" type="button">
+          <span class="material-symbols-rounded">tune</span>
+          <span>More</span>
+        </button>
+      </aside>
+
+      <main class="main-content">
+        <div id="viewRoot"></div>
+      </main>
+    </div>
+
+    <nav class="bottom-nav" aria-label="Primary">
+      <button class="bottom-nav__item is-active" data-view="dashboard" type="button">
+        <span class="material-symbols-rounded">home</span>
+        <span>Home</span>
+      </button>
+      <button class="bottom-nav__item" data-view="favorites" type="button">
+        <span class="material-symbols-rounded">kid_star</span>
+        <span>Favorites</span>
+      </button>
+      <button class="bottom-nav__item" data-view="recent" type="button">
+        <span class="material-symbols-rounded">history</span>
+        <span>Recent</span>
+      </button>
+      <button class="bottom-nav__item" data-view="settings" type="button">
+        <span class="material-symbols-rounded">tune</span>
+        <span>More</span>
+      </button>
+    </nav>
+  </div>
+
+  <div class="tool-overlay" id="toolOverlay" aria-hidden="true">
+    <div class="tool-overlay__scrim" data-close-tool></div>
+    <section class="tool-overlay__panel" role="dialog" aria-modal="true" aria-labelledby="toolTitle">
+      <div class="tool-overlay__handle"></div>
+      <div class="tool-overlay__content" id="toolOverlayContent"></div>
+    </section>
+  </div>
+
+  <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="true"></div>
+
+  <button class="fab" id="fabSearch" type="button" aria-label="Search tools">
+    <span class="material-symbols-rounded">search</span>
+  </button>
+
+  <div class="onboarding-overlay" id="onboarding" hidden>
+    <div class="onboarding-card">
+      <div class="onboarding-slides" id="onboardingSlides">
+        <div class="onboarding-slide is-active">
+          <span class="material-symbols-rounded onboarding-slide__icon">construction</span>
+          <h2>Welcome to Tools Super</h2>
+          <p>43+ utilities for text, images, calculations, QR codes, and more — all in one place.</p>
+        </div>
+        <div class="onboarding-slide">
+          <span class="material-symbols-rounded onboarding-slide__icon">search</span>
+          <h2>Search or Browse</h2>
+          <p>Use the search bar or category chips to instantly find any tool you need.</p>
+        </div>
+        <div class="onboarding-slide">
+          <span class="material-symbols-rounded onboarding-slide__icon">kid_star</span>
+          <h2>Save Your Favorites</h2>
+          <p>Star the tools you use most often for quick access from the Favorites tab.</p>
+        </div>
+      </div>
+      <div class="onboarding-dots" id="onboardingDots">
+        <span class="onboarding-dot is-active"></span>
+        <span class="onboarding-dot"></span>
+        <span class="onboarding-dot"></span>
+      </div>
+      <div class="onboarding-footer">
+        <button class="button button--cta" type="button" id="onboardingNext">Next</button>
+        <button class="button button--text" type="button" id="onboardingSkip">Skip intro</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
