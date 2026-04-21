@@ -3,6 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const crypto = require('node:crypto');
 
 function loadToolsHelpers() {
   const filePath = path.join(__dirname, '..', 'tools.js');
@@ -30,10 +31,7 @@ function loadToolsHelpers() {
     window: {
       crypto: {
         getRandomValues(values) {
-          for (let i = 0; i < values.length; i += 1) {
-            values[i] = i;
-          }
-          return values;
+          return crypto.randomFillSync(values);
         }
       },
       luxon: null

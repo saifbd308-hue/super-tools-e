@@ -30,10 +30,9 @@ function loadAppHelpers(localStorage) {
   const filePath = path.join(__dirname, '..', 'app.js');
   const source = fs.readFileSync(filePath, 'utf8');
 
-  const withoutInit = source.replace(
-    '  if (!toolIndex.size) {\n    return;\n  }\n\n  init();',
-    '  if (!toolIndex.size) {\n    // skipped in tests\n  }'
-  );
+  const withoutInit = source
+    .replace(/if \(!toolIndex\.size\) \{[\s\S]*?\}/, 'if (!toolIndex.size) {}')
+    .replace(/\n\s*init\(\);/, '\n  // init skipped in tests');
 
   const instrumented = withoutInit.replace(
     /\}\)\(\);\s*$/,
