@@ -1,0 +1,9 @@
+{
+  "name": "super-tools-e",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "test": "node --test",
+    "test:coverage": "node --test --experimental-test-coverage"
+  }
+}
